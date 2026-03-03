@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Genie File Management &amp; Storage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6366f1", // Indigo 500 equivalent, tweaking towards purple
+                        secondary: "#8b5cf6", // Violet 500
+                        "background-light": "#f3f4f6", // Gray 100
+                        "background-dark": "#111827", // Gray 900
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1f2937", // Gray 800
+                        "accent-purple": "#818cf8",
+                    },
+                    fontFamily: {
+                        display: ["Outfit", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem", // 12px
+                        xl: "1rem",
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(99, 102, 241, 0.3)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-body transition-colors duration-200 min-h-screen flex overflow-hidden">
+<aside class="w-64 bg-surface-light dark:bg-[#1a1f2e] border-r border-gray-200 dark:border-gray-800 flex flex-col justify-between hidden md:flex shrink-0 transition-colors duration-200">
+<div>
+<div class="h-20 flex items-center px-6 border-b border-gray-100 dark:border-gray-800/50">
+<img alt="Genie Logo" class="h-8 w-8 object-contain mr-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBez7aP7E2pZmcYzoSFkNo-DOe4sUwAjest9jbAed1WHHVsfQEwHK4tI0iGJtWXbYWypBsv5zHXXeSZNXagOSJe7vT-BiHxdnxiuXq6bYhYF9q0fU_kk7DWKbG3pDIyNVY94MrFKTE7FUMTBTSu1HzpVfMKkN01t8suBUi-tgiG8Jx_FBkafjA3DPbrgJGpHw-HcQg0pbZDgzDTBjZo-x6dGYqG08ncsIgsur4NvssGhGuDP-PeBhlM6r8SFC7pzG1vc2mxB_1MeU8"/>
+<span class="font-display font-bold text-2xl text-gray-900 dark:text-white">Genie</span>
+</div>
+<nav class="p-4 space-y-1">
+<a class="flex items-center px-4 py-3 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-xl transition-colors group" href="#">
+<span class="material-icons-round text-xl mr-3 group-hover:text-primary">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center px-4 py-3 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-xl transition-colors group" href="#">
+<span class="material-icons-round text-xl mr-3 group-hover:text-primary">chat_bubble_outline</span>
+<span class="font-medium">Chats</span>
+</a>
+<a class="flex items-center px-4 py-3 bg-primary/10 text-primary rounded-xl transition-colors font-medium" href="#">
+<span class="material-icons-round text-xl mr-3">folder_open</span>
+<span>Files</span>
+</a>
+<a class="flex items-center px-4 py-3 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-xl transition-colors group" href="#">
+<span class="material-icons-round text-xl mr-3 group-hover:text-primary">groups</span>
+<span class="font-medium">Teams</span>
+</a>
+</nav>
+<div class="px-6 py-4 mt-4">
+<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Quick Access</h3>
+<div class="space-y-3">
+<a class="flex items-center text-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" href="#">
+<span class="w-2 h-2 rounded-full bg-purple-500 mr-3"></span>
+                        Project Alpha
+                    </a>
+<a class="flex items-center text-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" href="#">
+<span class="w-2 h-2 rounded-full bg-blue-500 mr-3"></span>
+                        Marketing Assets
+                    </a>
+<a class="flex items-center text-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" href="#">
+<span class="w-2 h-2 rounded-full bg-pink-500 mr-3"></span>
+                        Design System
+                    </a>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-gray-200 dark:border-gray-800">
+<div class="flex items-center p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/50 cursor-pointer transition-colors">
+<div class="relative">
+<img alt="User Avatar" class="h-10 w-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaNdz29dBnHyyLuJJ4nKmN0Q9XEMxYKdVMVob6MAy_27qETIJEF8ISJQTkp5zDBpKxrJq2UB9FcW54fIoohuxGna5GZ4dQIJ6aQDuebYewRKL9e7bzdH3mwv95y_Nk4JnCTmWmNxtvJdE-Ie9LBex2OTL_MvDE_uayDagyPViG_J_xYKWViCHU6e1ThAScbI3ybZqlzwHpztp5Ma0oO8vUXwW1SO1_nwjPoaYyAP0Iwdso9cTPkZPhUWK--ynM_LSkc2EiZN3Hcg8"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+</div>
+<div class="ml-3 overflow-hidden">
+<p class="text-sm font-medium text-gray-900 dark:text-white truncate">Sophie Anderson</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 truncate">Product Designer</p>
+</div>
+<span class="material-icons-round text-gray-400 ml-auto">settings</span>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+<header class="h-20 bg-surface-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-8 z-10 shrink-0">
+<div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+<a class="hover:text-primary transition-colors" href="#">Files</a>
+<span class="material-icons-round text-base">chevron_right</span>
+<span class="font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Project Alpha</span>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative hidden sm:block">
+<span class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">search</span>
+<input class="pl-10 pr-4 py-2 bg-gray-100 dark:bg-gray-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary w-64 text-gray-900 dark:text-white placeholder-gray-500" placeholder="Search files..." type="text"/>
+</div>
+<div class="flex items-center bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
+<button class="p-1.5 rounded-lg bg-white dark:bg-gray-700 shadow-sm text-primary">
+<span class="material-icons-round text-xl">grid_view</span>
+</button>
+<button class="p-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+<span class="material-icons-round text-xl">view_list</span>
+</button>
+</div>
+<button class="bg-primary hover:bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-medium flex items-center shadow-lg shadow-primary/25 transition-all">
+<span class="material-icons-round text-lg mr-2">add</span>
+                    New
+                </button>
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons-round dark:hidden">dark_mode</span>
+<span class="material-icons-round hidden dark:block">light_mode</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<div class="flex-1 overflow-y-auto p-8">
+<div class="mb-8">
+<div class="flex items-center mb-4">
+<span class="material-icons-round text-secondary mr-2">auto_awesome</span>
+<h2 class="text-lg font-display font-semibold text-gray-900 dark:text-white">AI Suggestions</h2>
+<span class="ml-3 px-2 py-0.5 bg-secondary/10 text-secondary text-xs font-medium rounded-full border border-secondary/20">Based on your recent chats</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="group bg-white dark:bg-[#1a1f2e] p-4 rounded-2xl border border-secondary/30 dark:border-secondary/20 shadow-glow relative hover:-translate-y-1 transition-transform duration-300">
+<div class="absolute -top-2 -right-2 w-6 h-6 bg-secondary text-white rounded-full flex items-center justify-center shadow-lg animate-pulse">
+<span class="material-icons-round text-sm">bolt</span>
+</div>
+<div class="flex items-start justify-between mb-3">
+<div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-icons-round">description</span>
+</div>
+<button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+<span class="material-icons-round">more_vert</span>
+</button>
+</div>
+<h3 class="font-medium text-gray-900 dark:text-white text-sm truncate">Q4_Roadmap_Draft_v2.docx</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Edited 2m ago by You</p>
+</div>
+<div class="group bg-white dark:bg-[#1a1f2e] p-4 rounded-2xl border border-secondary/30 dark:border-secondary/20 shadow-glow relative hover:-translate-y-1 transition-transform duration-300">
+<div class="flex items-start justify-between mb-3">
+<div class="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+<span class="material-icons-round">slideshow</span>
+</div>
+<button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+<span class="material-icons-round">more_vert</span>
+</button>
+</div>
+<h3 class="font-medium text-gray-900 dark:text-white text-sm truncate">Investor_Pitch_Final.pptx</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Shared in #general</p>
+</div>
+</div>
+</div>
+<div class="mb-8">
+<h2 class="text-lg font-display font-semibold text-gray-900 dark:text-white mb-4">Folders</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+<div class="bg-white dark:bg-[#1f2937] p-4 rounded-xl border border-gray-100 dark:border-gray-700/50 hover:border-primary/50 dark:hover:border-primary/50 cursor-pointer transition-colors flex flex-col items-center text-center">
+<span class="material-icons-round text-yellow-500 text-4xl mb-2">folder</span>
+<span class="text-sm font-medium text-gray-700 dark:text-gray-200">Assets</span>
+<span class="text-xs text-gray-400 mt-1">24 items</span>
+</div>
+<div class="bg-white dark:bg-[#1f2937] p-4 rounded-xl border border-gray-100 dark:border-gray-700/50 hover:border-primary/50 dark:hover:border-primary/50 cursor-pointer transition-colors flex flex-col items-center text-center">
+<span class="material-icons-round text-yellow-500 text-4xl mb-2">folder</span>
+<span class="text-sm font-medium text-gray-700 dark:text-gray-200">Contracts</span>
+<span class="text-xs text-gray-400 mt-1">12 items</span>
+</div>
+<div class="bg-white dark:bg-[#1f2937] p-4 rounded-xl border border-gray-100 dark:border-gray-700/50 hover:border-primary/50 dark:hover:border-primary/50 cursor-pointer transition-colors flex flex-col items-center text-center">
+<span class="material-icons-round text-yellow-500 text-4xl mb-2">folder_shared</span>
+<span class="text-sm font-medium text-gray-700 dark:text-gray-200">Client Shares</span>
+<span class="text-xs text-gray-400 mt-1">8 items</span>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-dashed border-gray-300 dark:border-gray-600 hover:border-primary hover:text-primary cursor-pointer transition-colors flex flex-col items-center justify-center text-center text-gray-400">
+<span class="material-icons-round text-3xl mb-1">create_new_folder</span>
+<span class="text-sm font-medium">New Folder</span>
+</div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-4">
+<h2 class="text-lg font-display font-semibold text-gray-900 dark:text-white">Recent Files</h2>
+<div class="flex space-x-2">
+<span class="text-xs font-medium text-gray-400 uppercase">Sort by:</span>
+<button class="text-xs font-medium text-gray-600 dark:text-gray-300 flex items-center hover:text-primary">
+                                 Date Modified <span class="material-icons-round text-sm ml-1">arrow_downward</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<div class="bg-white dark:bg-[#1f2937] rounded-xl border border-gray-100 dark:border-gray-700/50 overflow-hidden hover:shadow-lg transition-shadow group">
+<div class="h-32 bg-gray-100 dark:bg-gray-800 relative flex items-center justify-center overflow-hidden">
+<img alt="Abstract gradient background" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAreWrCVm4CzZK2P6OdhM-6SdxmMXPorapTZolNGnIRqvUuPXiymJgll49LLLPutKnF1LQE_MerR6hvDcRlR3UzT1pagPfD03k_WGIJWnmXPrW9ocuHS4-9CZGK-2EfNmuqZphOmiLpXlVS1bmrwWXzXGK-BM0u36kUxBUFdcIWx4VUntmIgWPKBm7UuyC8XsqiL-olgn81PYYlQ87stnPQGnpO_Kprk7lzgDeeZ_kzS4ZBY3nU3sFrvuyKN9dLXH0RjvyvVXlgMnU"/>
+<div class="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-white/90 text-gray-800 rounded-full p-2 shadow-sm"><span class="material-icons-round text-sm">visibility</span></button>
+</div>
+<span class="absolute top-2 left-2 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded">JPG</span>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-medium text-gray-900 dark:text-white text-sm truncate w-40">UI_Concept_v4.jpg</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">2.4 MB • Today</p>
+</div>
+<button class="text-gray-400 hover:text-primary transition-colors"><span class="material-icons-round">star_border</span></button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1f2937] rounded-xl border border-gray-100 dark:border-gray-700/50 overflow-hidden hover:shadow-lg transition-shadow group">
+<div class="h-32 bg-red-50 dark:bg-red-900/10 flex items-center justify-center relative group-hover:bg-red-100 dark:group-hover:bg-red-900/20 transition-colors">
+<span class="material-icons-round text-red-500 text-5xl">picture_as_pdf</span>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-medium text-gray-900 dark:text-white text-sm truncate w-40">Annual_Report_2023.pdf</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">8.1 MB • Yesterday</p>
+</div>
+<button class="text-gray-400 hover:text-primary transition-colors"><span class="material-icons-round">star</span></button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1f2937] rounded-xl border border-gray-100 dark:border-gray-700/50 overflow-hidden hover:shadow-lg transition-shadow group">
+<div class="h-32 bg-gray-50 dark:bg-gray-800 flex items-center justify-center relative group-hover:bg-gray-100 dark:group-hover:bg-gray-700 transition-colors">
+<span class="material-icons-round text-gray-600 dark:text-gray-400 text-5xl">code</span>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-medium text-gray-900 dark:text-white text-sm truncate w-40">main.config.json</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">12 KB • 2 days ago</p>
+</div>
+<button class="text-gray-400 hover:text-primary transition-colors"><span class="material-icons-round">star_border</span></button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1f2937] rounded-xl border border-gray-100 dark:border-gray-700/50 overflow-hidden hover:shadow-lg transition-shadow group">
+<div class="h-32 bg-green-50 dark:bg-green-900/10 flex items-center justify-center relative group-hover:bg-green-100 dark:group-hover:bg-green-900/20 transition-colors">
+<span class="material-icons-round text-green-600 text-5xl">table_view</span>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-medium text-gray-900 dark:text-white text-sm truncate w-40">Q3_Budget.xlsx</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">450 KB • 4 days ago</p>
+</div>
+<button class="text-gray-400 hover:text-primary transition-colors"><span class="material-icons-round">star_border</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<aside class="w-80 bg-white dark:bg-[#1a1f2e] border-l border-gray-200 dark:border-gray-800 p-6 hidden xl:flex flex-col shrink-0">
+<div class="bg-gradient-to-br from-[#1f2937] to-[#111827] dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 text-white mb-8 relative overflow-hidden shadow-lg">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/20 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-display font-semibold text-lg">Storage</h3>
+<span class="bg-primary px-2 py-0.5 rounded text-[10px] font-bold tracking-wide">PRO</span>
+</div>
+<div class="flex items-center justify-center py-4">
+<div class="relative w-32 h-32">
+<svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+<path class="text-gray-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-primary drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="75, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-bold">75%</span>
+<span class="text-[10px] text-gray-400">Used</span>
+</div>
+</div>
+</div>
+<div class="space-y-3 mt-2">
+<div class="flex justify-between text-xs text-gray-300">
+<span>750 GB used</span>
+<span>1 TB total</span>
+</div>
+<div class="flex items-center gap-2 text-[10px] text-gray-400 justify-center mt-2">
+<div class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary mr-1"></span> Files</div>
+<div class="flex items-center"><span class="w-2 h-2 rounded-full bg-purple-400 mr-1"></span> Media</div>
+<div class="flex items-center"><span class="w-2 h-2 rounded-full bg-gray-600 mr-1"></span> Free</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg text-sm transition-colors text-white">Upgrade Plan</button>
+</div>
+<div class="mb-8">
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Upload Files</h3>
+<div class="border-2 border-dashed border-primary/30 dark:border-primary/40 bg-primary/5 dark:bg-primary/5 rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-primary/10 transition-colors group">
+<div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+<span class="material-icons-round text-2xl">cloud_upload</span>
+</div>
+<p class="text-sm font-medium text-gray-700 dark:text-gray-200">Drag &amp; Drop files here</p>
+<p class="text-xs text-gray-500 mt-1">or click to browse</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Recent Activity</h3>
+<div class="relative pl-4 border-l border-gray-200 dark:border-gray-800 space-y-6">
+<div class="relative">
+<span class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-blue-500 ring-4 ring-white dark:ring-[#1a1f2e]"></span>
+<p class="text-xs text-gray-500 mb-0.5">Just now</p>
+<p class="text-sm text-gray-800 dark:text-gray-200"><span class="font-semibold">You</span> uploaded <span class="text-primary font-medium">UI_Concept_v4.jpg</span></p>
+</div>
+<div class="relative">
+<span class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-purple-500 ring-4 ring-white dark:ring-[#1a1f2e]"></span>
+<p class="text-xs text-gray-500 mb-0.5">2 hours ago</p>
+<p class="text-sm text-gray-800 dark:text-gray-200"><span class="font-semibold">Sarah</span> commented on <span class="text-primary font-medium">Project_Plan.pdf</span></p>
+</div>
+<div class="relative">
+<span class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 ring-4 ring-white dark:ring-[#1a1f2e]"></span>
+<p class="text-xs text-gray-500 mb-0.5">Yesterday</p>
+<p class="text-sm text-gray-800 dark:text-gray-200"><span class="font-semibold">Mike</span> created folder <span class="text-primary font-medium">Assets</span></p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+
+</body></html>

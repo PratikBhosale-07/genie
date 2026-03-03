@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Genie AI Chat Interface</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#7C3AED", // Deep violet/purple
+              "primary-hover": "#6D28D9",
+              "background-light": "#F3F4F6", // Gray-100
+              "background-dark": "#0F172A", // Slate-900
+              "surface-light": "#FFFFFF",
+              "surface-dark": "#1E293B", // Slate-800
+              "secondary-dark": "#334155", // Slate-700
+              "accent-purple": "#8B5CF6",
+              "accent-blue": "#3B82F6",
+            },
+            fontFamily: {
+              display: ['"Plus Jakarta Sans"', "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem",
+            },
+            boxShadow: {
+                'glow': '0 0 20px rgba(124, 58, 237, 0.5)',
+            }
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .dark .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .ai-gradient-text {
+            background: linear-gradient(135deg, #A855F7 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .ai-message-bg {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+        }
+        .dark .ai-message-bg {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 3px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 h-screen overflow-hidden flex transition-colors duration-200 selection:bg-purple-500 selection:text-white">
+<aside class="w-64 bg-surface-light dark:bg-surface-dark border-r border-gray-200 dark:border-gray-800 flex flex-col justify-between hidden md:flex shrink-0 z-20">
+<div>
+<div class="h-16 flex items-center px-6 border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<img alt="Genie Logo" class="h-8 w-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAslXGz3Cu_AnWNHy7C2P5ZQhP01Vbd4_D8RYz5Hu56dtlB6reUL5pYT4V4ZvpVpWqQIubz4HI8mT8SjXsWmvzsLv2h3R-eVx6qFeM34EWStjDdNqTXP4OKKV8XtpFyTn6dHLfmKPQWrur-G0itfEMvmkVyJhhbpb0RoR3yZ1LoxS0Ia1hAEKbJ6dC2u044o2LycsLENu3yckxomSxa-rLYe9W2c_--h80JCcP1ipnbXreBUzXQGupobY94azxaSbseAmppDPBHZbY"/>
+<span class="text-xl font-bold ai-gradient-text">Genie</span>
+</div>
+</div>
+<nav class="p-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-500/20 transition-all hover:scale-[1.02]" href="#">
+<span class="material-icons-round text-xl">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 rounded-xl transition-colors" href="#">
+<span class="material-icons-round text-xl">chat_bubble_outline</span>
+<span class="font-medium">Chats</span>
+<span class="ml-auto bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 text-xs font-bold px-2 py-0.5 rounded-full">3</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 rounded-xl transition-colors" href="#">
+<span class="material-icons-round text-xl">groups</span>
+<span class="font-medium">Teams</span>
+</a>
+<div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+<p class="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Your Rooms</p>
+<a class="flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-slate-700/40 text-gray-900 dark:text-white rounded-lg border-l-4 border-violet-500" href="#">
+<div class="h-8 w-8 rounded-full bg-violet-100 dark:bg-violet-900/50 flex items-center justify-center text-violet-600 dark:text-violet-300">
+<span class="material-icons-round text-sm">rocket_launch</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium truncate">Project Alpha</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 truncate">5 members</p>
+</div>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700/30 rounded-lg mt-1 transition-colors" href="#">
+<div class="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-300">
+<span class="material-icons-round text-sm">lock</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium truncate">Private Chat</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 truncate">Direct Message</p>
+</div>
+</a>
+<button class="w-full mt-3 flex items-center justify-center gap-2 py-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-500 dark:text-gray-400 hover:border-violet-400 hover:text-violet-500 transition-colors">
+<span class="material-icons-round text-lg">add</span>
+                        Create Room
+                    </button>
+</div>
+</nav>
+</div>
+<div class="p-4 border-t border-gray-200 dark:border-gray-800">
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 rounded-xl transition-colors mb-2" href="#">
+<span class="material-icons-round text-xl">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+<div class="flex items-center gap-3 px-2 py-2">
+<div class="relative">
+<img alt="User Avatar" class="h-10 w-10 rounded-full border-2 border-white dark:border-slate-700 shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrU26Awma-w_hfFwYrIshH1QHeeJo4ljEMAMoyWqyWRRVdMppYcb4mmyUYy_egYb2qKvLBU6eipv24OFvKcAZsqZfzzSURwIUaZ9OKtO4ti8mXzVCDt-wr_BGi5PEtUl61xwFWrzKF8UmivMKHJbePoBBVvRMg654SyXBJqOsOCOJbbPu4k61S0LWAhHcMdfVBHNdQkc3PBYUeF2ArqlxqNGeJwX8Khqv_K4ifyAfx1KEV0khDj23SafN2mQgsO_czMsxfbJmhug0"/>
+<span class="absolute bottom-0 right-0 h-3 w-3 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-gray-900 dark:text-white truncate">Alex Morgan</p>
+<p class="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
+                        Online
+                    </p>
+</div>
+<button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+<span class="material-icons-round">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full relative overflow-hidden bg-background-light dark:bg-background-dark">
+<header class="h-16 bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6 z-10 sticky top-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-gray-500 dark:text-gray-400">
+<span class="material-icons-round">menu</span>
+</button>
+<div>
+<h2 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        Project Alpha
+                        <span class="bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs px-2 py-0.5 rounded-full border border-violet-200 dark:border-violet-700">AI Enabled</span>
+</h2>
+<p class="text-xs text-gray-500 dark:text-gray-400">Collaborative workspace • 5 members</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2 overflow-hidden">
+<img alt="" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-800" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnU0K3MLDa7lM3oi6OGz-mtEclMCEc8OL4qgp1Z70fObPalctrUuT3Y_62zUyPVL24pFWFVA3xlVmo70jcWzbP1ChFDBOMZU6cjHZ3lVkkkbroxIZ4qXwZ2A8qbpxHgUwhDBHjSaIcnJhfYCxuzoGIcE3bbiddESdBbAj_8wap-HUrSABtKGjlHE5R1HdrQSglmoApytrO0o6Rf-mmyWlPGblwGB4Q_hOLQeiQI-zf1V-4ORRTUMT3atmYKi8fJPu1jUrxOBMA6pM"/>
+<img alt="" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-800" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANJiWaZhavuQEtMsqcXnyhM3T6W1ea1cP5aR033Sf0Mtn53uLxDAj_-X0QoEIH72GQza-e9JoR7knw6gTJ4PLoer3_sXt3p_J0z1D2Ltp3TS2R-vs8RD3jRVYLSl9eXbopu6YjmIarUk636UvtatmpUlzd_U_twwCwJWzamu-vmI84rHwnf4qR1o4gqS5HmsXisc0bOLM6E-AO8yvZTYXqUdqe7Mp5PrbjH27MsejJwfDvyGyhNQPBd_De7HQZ2MWkjUZ8eHC9CF4"/>
+<img alt="" class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-slate-800" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7aODrJxDCbFIJiYctCTciI9fmlZKqUPWr_5_2uXpiRJeVG3wpuc4dhal4d_RdBNjvOnuv_A8zXsboG0-S5X5vKAuwdHZvqHIL4j-5cUOpxLg77A4NuHmnZNd07lYIB-fxwOorQTNg1jbPhlw7ycvA6RvnigfvPI1Fnobx87WhMbBZmcekzuWkLrClo3XCPUHGUK7fRp-IYwElQWmM1uUlmSqQKXXM2wU9IKeKdITs6t_UNn5awv0XRJoDlc5fSKQzK-vV3Xhp0Cw"/>
+<div class="h-8 w-8 rounded-full bg-gray-100 dark:bg-slate-700 ring-2 ring-white dark:ring-slate-800 flex items-center justify-center text-xs text-gray-500 dark:text-gray-300 font-medium">+2</div>
+</div>
+<div class="h-8 w-px bg-gray-200 dark:bg-gray-700 mx-1"></div>
+<button class="p-2 text-gray-500 hover:text-violet-600 dark:text-gray-400 dark:hover:text-violet-400 transition-colors">
+<span class="material-icons-round">search</span>
+</button>
+<button class="p-2 text-gray-500 hover:text-violet-600 dark:text-gray-400 dark:hover:text-violet-400 transition-colors">
+<span class="material-icons-round">more_vert</span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 space-y-6" id="chat-container">
+<div class="flex items-center justify-center my-4">
+<span class="px-3 py-1 bg-gray-200 dark:bg-slate-700 text-gray-500 dark:text-gray-400 text-xs rounded-full font-medium">Today</span>
+</div>
+<div class="flex items-end justify-end gap-3">
+<div class="flex flex-col items-end max-w-[80%]">
+<div class="bg-violet-600 text-white p-4 rounded-2xl rounded-tr-none shadow-md">
+<p class="text-sm leading-relaxed">Can you summarize the key takeaways from yesterday's marketing meeting? I need to send an update to the stakeholders.</p>
+</div>
+<span class="text-xs text-gray-400 mt-1">10:42 AM</span>
+</div>
+<img alt="User" class="h-8 w-8 rounded-full self-end mb-5 shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNLCLtiowfdU750NYTRamKJu8an3PiA9rlfE_bllJzddqs2tRhOteHB_qFKxPBa88NDSPUNVlw9mBL2MXCra7GnAVecTNSiy1wJcciEDZ09WIjRabDZqoejzYXZcmywDZHR2Fiyc_Mib4lTZeQ60_NSRdXZ-iX1YMFxhyASgybPAgb7Y6_rRx7BcbvTvR6_oJj3Wqbs7_XF0tF3Hxi8s19VYGZxPUU60sqk5N5U-VqaiGN9Dc6WaJ_vgJyBjGzn2JUp2RcbL2xxEs"/>
+</div>
+<div class="flex items-start gap-3">
+<div class="h-8 w-8 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center shadow-lg shadow-purple-500/30 self-end mb-6">
+<span class="material-icons-round text-white text-sm">auto_awesome</span>
+</div>
+<div class="flex flex-col max-w-[85%]">
+<div class="flex items-center gap-2 mb-1 ml-1">
+<span class="text-sm font-bold ai-gradient-text">Genie AI</span>
+<span class="text-[10px] bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-1.5 py-0.5 rounded border border-green-200 dark:border-green-800">Confidence: 98%</span>
+</div>
+<div class="ai-message-bg p-5 rounded-2xl rounded-tl-none shadow-sm backdrop-blur-sm text-gray-800 dark:text-gray-200">
+<p class="text-sm leading-relaxed mb-3">Here is the summary of the marketing meeting held on Oct 24th:</p>
+<ul class="list-disc list-inside space-y-2 text-sm marker:text-violet-500">
+<li><strong class="text-gray-900 dark:text-white">Q4 Goals:</strong> Confirmed target of 20% growth in user acquisition.</li>
+<li><strong class="text-gray-900 dark:text-white">Budget:</strong> Approved additional $5k for social media ad spend.</li>
+<li><strong class="text-gray-900 dark:text-white">New Campaign:</strong> "Winter Wonderland" campaign launches on Nov 1st.</li>
+<li><strong class="text-gray-900 dark:text-white">Action Items:</strong> Sarah to finalize creatives by Friday.</li>
+</ul>
+<div class="mt-4 flex gap-2">
+<button class="text-xs flex items-center gap-1 px-3 py-1.5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-violet-400 dark:hover:border-violet-500 transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-icons-round text-sm">content_copy</span> Copy
+                            </button>
+<button class="text-xs flex items-center gap-1 px-3 py-1.5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-violet-400 dark:hover:border-violet-500 transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-icons-round text-sm">share</span> Share to Channel
+                            </button>
+<button class="text-xs flex items-center gap-1 px-3 py-1.5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-violet-400 dark:hover:border-violet-500 transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-icons-round text-sm">thumb_up_off_alt</span>
+</button>
+</div>
+</div>
+<span class="text-xs text-gray-400 mt-1 ml-1">10:43 AM • AI Generated</span>
+</div>
+</div>
+<div class="flex items-end justify-end gap-3">
+<div class="flex flex-col items-end max-w-[80%]">
+<div class="bg-violet-600 text-white p-4 rounded-2xl rounded-tr-none shadow-md">
+<p class="text-sm leading-relaxed">Great, draft an email to the team with this summary.</p>
+</div>
+<span class="text-xs text-gray-400 mt-1">10:44 AM</span>
+</div>
+<img alt="User" class="h-8 w-8 rounded-full self-end mb-5 shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgzhbDCLLLlQcVgP-joh34bDYi_3v7lz1diT06-a8eOhs7qZxRK8pY-rCJjG50tV42YpTwyhPjUlde0RqYBfVmnmZAtfH4LQBkG8wn-b69_026U12bsurF7txpk4B1FNn1qY3WUC5uMInTgv_tHNsl1Seq4ySwpQZujkDDWUaqmTyUVtqK8YoZ65tl78hs81J0WLlCIX_W1Xd1GhqPD8jJDI_cFkli4KAAdIsPT7eYH5J8AjIL_E9l2sC3ZXv0Yvv81a07TuQ-Uco"/>
+</div>
+<div class="flex items-start gap-3 animate-pulse">
+<div class="h-8 w-8 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center opacity-70 self-end mb-2">
+<span class="material-icons-round text-white text-xs">auto_awesome</span>
+</div>
+<div class="ai-message-bg px-4 py-3 rounded-2xl rounded-tl-none flex items-center gap-1">
+<div class="w-2 h-2 bg-violet-400 rounded-full animate-bounce"></div>
+<div class="w-2 h-2 bg-violet-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+<div class="w-2 h-2 bg-violet-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+</div>
+</div>
+</div>
+<div class="p-6 pt-2 bg-transparent z-20">
+<div class="relative glass-panel rounded-2xl shadow-xl dark:shadow-none dark:bg-slate-800 border dark:border-slate-700">
+<div class="absolute -top-12 left-0 flex gap-2">
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-white/90 dark:bg-slate-800/90 backdrop-blur border border-gray-200 dark:border-gray-700 rounded-full shadow-sm text-xs font-medium text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-icons-round text-sm">summarize</span> /summarize
+                    </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-white/90 dark:bg-slate-800/90 backdrop-blur border border-gray-200 dark:border-gray-700 rounded-full shadow-sm text-xs font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-icons-round text-sm">edit_note</span> /draft
+                    </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-white/90 dark:bg-slate-800/90 backdrop-blur border border-gray-200 dark:border-gray-700 rounded-full shadow-sm text-xs font-medium text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors">
+<span class="material-icons-round text-sm">lightbulb</span> /idea
+                    </button>
+</div>
+<div class="p-2">
+<textarea class="w-full bg-transparent border-none text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-0 text-sm resize-none py-3 px-3 scrollbar-hide" placeholder="Ask Genie AI or type a message..." rows="2"></textarea>
+</div>
+<div class="flex items-center justify-between px-3 pb-3">
+<div class="flex items-center gap-1">
+<button class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors">
+<span class="material-icons-round">add_circle_outline</span>
+</button>
+<button class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors">
+<span class="material-icons-round">image</span>
+</button>
+<button class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors">
+<span class="material-icons-round">mic_none</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-xs text-gray-400 hidden sm:block">Press <kbd class="px-1.5 py-0.5 bg-gray-100 dark:bg-slate-700 rounded border border-gray-200 dark:border-gray-600 font-sans">Enter</kbd> to send</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary-hover text-white px-4 py-2 rounded-xl shadow-lg shadow-purple-500/25 transition-all active:scale-95">
+<span class="material-icons-round text-sm">auto_awesome</span>
+<span class="font-semibold text-sm">Ask AI</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<aside class="w-80 bg-surface-light dark:bg-surface-dark border-l border-gray-200 dark:border-gray-800 hidden lg:flex flex-col shrink-0 z-20">
+<div class="p-5 border-b border-gray-200 dark:border-gray-800">
+<h3 class="font-bold text-gray-900 dark:text-white text-lg">Details</h3>
+</div>
+<div class="flex-1 overflow-y-auto p-5">
+<div class="mb-6">
+<div class="flex items-center justify-between mb-3">
+<h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+<span class="material-icons-round text-violet-500 text-sm">insights</span>
+                        AI Conversation Summary
+                    </h4>
+</div>
+<div class="p-4 bg-gradient-to-br from-violet-50 to-blue-50 dark:from-violet-900/10 dark:to-blue-900/10 border border-violet-100 dark:border-violet-500/20 rounded-xl">
+<p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+                        The user is requesting a summary of the marketing meeting from Oct 24th to share with stakeholders. Action items include final creatives by Friday.
+                    </p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 px-2 py-1 rounded-md">#Marketing</span>
+<span class="text-[10px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 px-2 py-1 rounded-md">#Q4Goals</span>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">In this thread</h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<img class="h-8 w-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7ZvHmb-aPneZlxMve5jqYC7nIefIFpsTbuEM15s_TQrkR6Knjihkqy9eSn0tcNy-DkfiQYgQutdIOGiFQ-eIwI8qKeONeLIVSkJbJ28etzc_ceKOoMlX7DsCTlc1ejaUgS4rlWdTvB0nhsN-01q58cuiTZmaXVOV1UJ2wdLeWfjDzQ0oD7GCvmqTN_DV28AH1lbQZJQTOZZjn7B7MPurhJbOMQo5-57K-3PHUU2ykNnthNvLMKKPPXXNFU74HQnPaZieljveAggs"/>
+<span class="text-sm text-gray-700 dark:text-gray-200">Alex Morgan</span>
+</div>
+<span class="text-xs text-gray-400 group-hover:text-violet-500 cursor-pointer">View</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
+<span class="material-icons-round text-white text-xs">auto_awesome</span>
+</div>
+<span class="text-sm text-gray-700 dark:text-gray-200">Genie AI</span>
+</div>
+<span class="text-xs text-violet-500">Assistant</span>
+</div>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Shared Resources</h4>
+<div class="space-y-2">
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-gray-200 dark:hover:border-gray-700" href="#">
+<div class="h-10 w-10 rounded bg-red-100 dark:bg-red-900/30 text-red-500 flex items-center justify-center shrink-0">
+<span class="material-icons-round">picture_as_pdf</span>
+</div>
+<div class="min-w-0">
+<p class="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">Q4_Marketing_Plan.pdf</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">2.4 MB • Today</p>
+</div>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-gray-200 dark:hover:border-gray-700" href="#">
+<div class="h-10 w-10 rounded bg-blue-100 dark:bg-blue-900/30 text-blue-500 flex items-center justify-center shrink-0">
+<span class="material-icons-round">description</span>
+</div>
+<div class="min-w-0">
+<p class="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">Meeting_Notes_Oct24.docx</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">145 KB • Yesterday</p>
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-slate-800/50">
+<div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+<span>System Status</span>
+<span class="flex items-center gap-1.5 text-green-600 dark:text-green-400 font-medium">
+<span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                    Operational
+                </span>
+</div>
+</div>
+</aside>
+<div class="fixed top-4 right-4 z-50 lg:hidden">
+<button class="p-2 bg-white dark:bg-slate-700 rounded-full shadow-lg border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-yellow-300" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons-round text-xl">dark_mode</span>
+</button>
+</div>
+<script>
+        // Check for saved user preference, if any, on load of the website
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+
+</body></html>

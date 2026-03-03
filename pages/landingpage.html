@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genie - Your Chat Assistant</title>
+    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/landingpage.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="landing-body">
+    <div class="landing-container">
+        <header>
+            <div class="theme-switcher">
+                <span class="theme-label">Theme:</span>
+                <button class="theme-btn" data-theme="light" title="Light Theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="theme-btn" data-theme="dark" title="Dark Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="theme-btn" data-theme="system" title="System Default">
+                    <i class="fas fa-desktop"></i>
+                </button>
+            </div>
+            <div class="landing-logo-container">
+                <img src="../assets/Genie-removebg-preview.png" alt="Genie Logo" class="logo">
+                <h1 class="website-name">Genie</h1>
+            </div>
+        </header>
+        
+        <main class="landing-content">
+            <div class="landing-text">
+                <h2 class="landing-title highlighted-title emphasis-text">Elevate Your Team Communication</h2>
+                <p class="landing-description">
+                    Streamline your messaging with our organized and confidential chat rooms. Enhance teamwork with AI support for brainstorming and troubleshooting, all in a reliable, flexible space that helps your team excel.
+                </p>
+                <a href="Login.html" class="btn landing-btn">Get Started</a>
+            </div>
+            
+            <div class="landing-image">
+                <div class="floating-shape shape1"></div>
+                <div class="floating-shape shape2"></div>
+                <div class="floating-shape shape3"></div>
+                <div class="floating-shape shape4"></div>
+            </div>
+        </main>
+        
+        <footer class="landing-footer">
+            <p>&copy; 2025 Genie - All rights reserved</p>
+        </footer>
+    </div>
+
+    <script src="../scripts/landingpage.js"></script>
+    <script src="../scripts/theme-switcher.js"></script>
+    <script>
+        document.querySelector('.landing-btn').addEventListener('mouseover', function() {
+            this.style.color = '#fff';
+        });
+        document.querySelector('.landing-btn').addEventListener('mouseout', function() {
+            this.style.color = '';
+        });
+    </script>
+</body>
+</html>

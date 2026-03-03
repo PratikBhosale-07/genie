@@ -1,0 +1,35 @@
+# Genie AI Workspace Implementation Plan
+
+## Goal Description
+Refactor the existing static Genie UI into a scalable, production-ready SaaS platform supporting authentication, real-time communication via Socket.io/WebRTC, AI context sharing, Stripe subscriptions, and secure file sharing. The stack includes Next.js, Node.js + Express, PostgreSQL, Redis, and WebRTC.
+
+## Proposed Changes
+
+### 1. Architecture Refactoring
+- **Frontend** will be housed in a Next.js App Router setup under `frontend/` or integrated if preferred.
+- **Backend** will be a separate Node.js + Express + Socket.io app under `backend/`.
+- Convert the provided Stitch UI HTML to Next.js functional components.
+- Introduce `Zustand` for state management and modularize components (split layout, logic, API, socket contexts).
+
+### 2. Backend & Database Setup
+- Initialize PostgreSQL (with Prisma or Drizzle) under the backend directory.
+- Define schema: `Users`, `Rooms`, `RoomMembers`, `Messages`, `AIUsageLogs`, `Files`.
+- Structure `/services`, `/controllers`, `/routes`, `/middlewares`, `/sockets`.
+
+### 3. Feature Implementation Sequence
+1. **Authentication**: JWT cookies, OAuth.
+2. **Rooms**: Creation, Invites, Validation.
+3. **Chat**: Socket.io adapter with Redis.
+4. **AI Integration**: AI service layer, context summarization per room (every 50 messages).
+5. **Calls**: WebRTC signaling integration.
+6. **Files & Billing**: S3 implementation and Stripe features.
+
+## Verification Plan
+### Automated Tests
+- Postman / Jest tests for backend API routes.
+- Component structural tests for UI.
+
+### Manual Verification
+- Manually run Next.js and Express servers together.
+- Test 2-player interaction in real-time using Socket.io and WebRTC local development environments.
+- Verify JWT cookies persistence across tabs and reloads.

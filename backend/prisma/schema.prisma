@@ -1,0 +1,129 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String?
+  googleId      String?
+  name          String
+  avatarUrl     String?
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  rooms         RoomMember[]
+  messages      Message[]
+  files         File[]
+  aiUsage       AIUsageLogs[]
+  subscription  Subscription?
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model Room {
+  id                String    @id @default(uuid())
+  name              String
+  description       String?
+  isPrivate         Boolean   @default(false)
+  aiContextSummary  String?   @db.Text
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  members           RoomMember[]
+  messages          Message[]
+  files             File[]
+}
+
+model RoomMember {
+  id        String   @id @default(uuid())
+  userId    String
+  roomId    String
+  role      RoomRole @default(MEMBER)
+  joinedAt  DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roomId])
+}
+
+enum RoomRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+model Message {
+  id        String    @id @default(uuid())
+  content   String    @db.Text
+  isAi      Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  userId    String?   // nullable for systemic/ai messages if needed, or link AI to a systemic user
+  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  roomId    String
+  room      Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@index([roomId, createdAt])
+}
+
+model File {
+  id        String   @id @default(uuid())
+  name      String
+  url       String
+  sizeBytes Int
+  fileType  String
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+}
+
+model AIUsageLogs {
+  id            String   @id @default(uuid())
+  userId        String
+  tokensUsed    Int
+  modelUsed     String
+  promptType    String
+  createdAt     DateTime @default(now())
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Subscription {
+  id            String    @id @default(uuid())
+  userId        String    @unique
+  stripeCustId  String    @unique
+  plan          PlanTier  @default(FREE)
+  status        SubStatus @default(ACTIVE)
+  currentPeriodEnd DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum PlanTier {
+  FREE
+  PRO
+}
+
+enum SubStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+}

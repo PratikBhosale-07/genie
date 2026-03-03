@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "firebase": "^11.4.0"
+  },
+  "scripts": {
+    "deploy": "node deploy-firebase.js",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "login": "firebase login",
+    "logout": "firebase logout"
+  }
+}

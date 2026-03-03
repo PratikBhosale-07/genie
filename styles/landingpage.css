@@ -1,0 +1,597 @@
+/* Landing page specific styles */
+.landing-body {
+    background: var(--bg-color);
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+.landing-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 2 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%236b46c1' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.landing-container {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    padding: 0 2rem;
+}
+
+header {
+    padding: 2rem 1rem;
+    animation: fadeInDown 1s ease-out;
+}
+
+.landing-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.landing-logo-container .logo {
+    width: 150px; /* Increased from 80px */
+    height: 150px; /* Increased from 80px */
+    filter: drop-shadow(0 10px 15px rgba(107, 70, 193, 0.2));
+    animation: none; /* Remove animation from logo */
+    transform-origin: center center;
+}
+
+.landing-logo-container .website-name {
+    margin: 0;
+    font-size: 6rem; /* Increased from 3.5rem */
+    background: linear-gradient(to right, #6b46c1, #3182ce, #6b46c1);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 2px 5px rgba(107, 70, 193, 0.1);
+    font-weight: 700;
+    animation: pulse 2s infinite ease-in-out; /* Add pulse animation like login page */
+}
+
+.landing-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Changed from space-between to center */
+    padding: 2rem;
+    position: relative;
+    gap: 4rem;
+}
+
+.landing-text {
+    flex: 1;
+    max-width: 600px;
+    padding: 2.5rem;
+    position: relative;
+    z-index: 2;
+    background: var(--card-bg);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 
+        0 10px 30px var(--shadow-color),
+        0 1px 3px rgba(0, 0, 0, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--border-color);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInLeft 1s ease-out;
+    margin: 0 auto; /* Center the white box */
+    text-align: center; /* Center the content inside */
+    z-index: 1;
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+}
+
+.landing-text:hover {
+    box-shadow: 
+        0 15px 35px rgba(107, 70, 193, 0.1),
+        0 5px 15px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px);
+}
+
+.landing-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--heading-color);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+}
+
+.landing-description {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+    letter-spacing: 0.01rem;
+    position: relative;
+}
+
+.landing-btn {
+    width: 200px;
+    height: 55px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #6b46c1, #3182ce);
+    background-size: 200% auto;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(107, 70, 193, 0.3);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.landing-btn:hover {
+    background-position: right center;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(107, 70, 193, 0.4);
+    color: transparent; /* Make text transparent to apply gradient */
+    /* Remove the white background that causes the flash */
+    background: transparent; 
+    border: 2px solid #6b46c1;
+    position: relative;
+    z-index: 1;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, #6b46c1, #3182ce, #6b46c1);
+    font-weight: 600;
+    text-shadow: none;
+}
+
+.landing-btn:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, #6b46c1, #3182ce, #6b46c1);
+    color: transparent;
+}
+
+/* Create gradient border effect using pseudo-element instead of complex background-clip */
+.landing-btn:hover::before {
+    content: "";
+    position: absolute;
+    top: -2px; /* Account for the 2px border */
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(to right, #6b46c1, #3182ce, #6b46c1);
+    background-size: 200% auto;
+    border-radius: 52px; /* Slightly larger than the button's 50px */
+    z-index: -1;
+    animation: gradientFlow 3s ease infinite;
+}
+
+.landing-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(107, 70, 193, 0.3);
+}
+
+.landing-btn::after { 
+    content: " → ";
+    position: absolute;
+    right: 25px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translateX(-10px);
+    z-index: 2; /* Ensure the arrow appears above all elements */
+}
+
+.landing-btn:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.landing-image {
+    flex: 1;
+    height: 400px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInRight 1s ease-out;
+    perspective: 1000px;
+}
+
+.landing-image .floating-shape {
+    position: absolute;
+    background: linear-gradient(45deg, #6b46c1, #3182ce);
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(107, 70, 193, 0.3);
+}
+
+.landing-image .shape1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 20%;
+    opacity: 0.8;
+}
+
+.landing-image .shape2 {
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    opacity: 0.6;
+}
+
+.landing-image .shape3 {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    left: 60%;
+    opacity: 0.7;
+}
+
+.landing-image .shape4 {
+    width: 70px;
+    height: 70px;
+    top: 70%;
+    left: 30%;
+    opacity: 0.9;
+}
+
+.landing-footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--footer-color);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 2rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Enhanced animations */
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(2deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(0deg);
+    }
+    75% {
+        transform: translateY(-10px) rotate(-2deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add the pulse animation from login page */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .landing-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem;
+    }
+    
+    .landing-text {
+        max-width: 100%;
+        padding: 2rem;
+        margin-bottom: 0;
+    }
+    
+    .landing-title {
+        font-size: 2rem;
+    }
+    
+    .landing-btn {
+        margin: 0 auto;
+    }
+    
+    .landing-image {
+        height: 300px;
+        width: 100%;
+        order: -1;
+    }
+    
+    .landing-btn::after {
+        right: 20px;
+    }
+    
+    .landing-logo-container .website-name {
+        font-size: 3.5rem; /* Slightly smaller on medium screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .landing-logo-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .landing-logo-container .website-name {
+        font-size: 3rem; /* Even smaller on small screens */
+    }
+    
+    .landing-title {
+        font-size: 1.8rem;
+    }
+    
+    .landing-description {
+        font-size: 1rem;
+    }
+    
+    .landing-text {
+        padding: 1.5rem;
+    }
+    
+    .landing-btn {
+        width: 180px;
+        height: 50px;
+        font-size: 1rem;
+    }
+}
+
+/* Add more subtle interactions */
+.ripple {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+/* Theme Switcher Styles */
+.theme-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+}
+
+.theme-label {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.theme-btn {
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--btn-bg);
+    color: var(--btn-color);
+}
+
+.theme-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.theme-btn.active {
+    background: linear-gradient(45deg, #6b46c1, #3182ce);
+    color: white;
+    box-shadow: 0 5px 15px rgba(107, 70, 193, 0.3);
+}
+
+/* CSS Variables for theme colors */
+:root {
+    --bg-color: linear-gradient(135deg, #f6f9fc 0%, #e2e8f5 100%);
+    --text-color: #444;
+    --heading-color: linear-gradient(120deg, #6b46c1, #3182ce);
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --border-color: rgba(255, 255, 255, 0.5);
+    --footer-color: #666;
+    --btn-bg: rgba(255, 255, 255, 0.8);
+    --btn-color: #444;
+    /* Added fallback options for browsers that don't support backdrop-filter */
+    --card-fallback-bg: rgba(255, 255, 255, 0.95); 
+}
+
+[data-theme="dark"] {
+    --bg-color: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    --text-color: #e2e8f0;
+    --heading-color: linear-gradient(120deg, #b794f4, #90cdf4);
+    --card-bg: rgba(26, 32, 44, 0.85);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --footer-color: #a0aec0;
+    --btn-bg: rgba(45, 55, 72, 0.8);
+    --btn-color: #e2e8f0;
+    /* Added fallback options for browsers that don't support backdrop-filter */
+    --card-fallback-bg: rgba(26, 32, 44, 0.95);
+}
+
+/* Add backdrop-filter fallback */
+@supports not (backdrop-filter: blur(10px)) {
+    .landing-text {
+        background: var(--card-fallback-bg);
+    }
+}
+
+/* Apply theme variables to elements */
+.landing-body {
+    background: var(--bg-color);
+}
+
+.landing-description {
+    color: var(--text-color);
+}
+
+.landing-title {
+    background: var(--heading-color);
+}
+
+.landing-text {
+    background: var(--card-bg);
+    box-shadow: 
+        0 10px 30px var(--shadow-color),
+        0 1px 3px rgba(0, 0, 0, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+.landing-footer {
+    color: var(--footer-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.theme-label {
+    color: var(--text-color);
+}
+
+/* Add these styles to your existing CSS file */
+
+.highlighted-title {
+    padding: 8px 15px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.3;
+}
+
+/* Additional responsive styles for mobile */
+@media (max-width: 768px) {
+    .highlighted-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* Add this to your existing CSS file */
+
+.emphasis-text {
+    letter-spacing: 0.5px;
+}
+
+/* For dark theme compatibility */
+/* Added comment to explain why this specific style was removed */
+/* Dark theme styles for highlighted-title are handled by CSS variables */
+
+/* Remove animation for highlighted title */
+/* Added comment to explain why this specific style was removed */
+/* We're keeping the default styles for highlighted title without additional modifications */
+
+/* Keep the glow keyframes for other elements that might use it */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #fff, 0 0 10px #ff6b6b;
+    }
+    to {
+        text-shadow: 0 0 10px #fff, 0 0 15px #ff6b6b, 0 0 20px #ff6b6b;
+    }
+}
+
+/* Add these styles to override the gradient color for highlighted-title */
+.landing-title.highlighted-title {
+    background: linear-gradient(to right, #6b46c1, #3182ce, #6b46c1);
+    background-size: 200% auto;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
+    font-weight: 700;
+    text-shadow: none;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+/* In dark theme, we keep the existing style */
+[data-theme="dark"] .landing-title.highlighted-title {
+    -webkit-text-fill-color: #3a5998; /* Lighter navy blue for dark theme */
+    color: #3a5998; /* Fallback */
+}

@@ -1,0 +1,729 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f5f7fa;
+  overflow-x: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 650px; /* Increased from 600px to provide more space */
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.forms-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.signin-signup {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 75%;
+  width: 50%;
+  transition: 1s 0.7s ease-in-out;
+  display: grid;
+  grid-template-columns: 1fr;
+  z-index: 5;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 5rem;
+  padding-bottom: 20px; /* Add padding at the bottom */
+  transition: all 0.2s 0.7s;
+  overflow-y: auto; /* Allow scrolling if content exceeds height */
+  max-height: 100%;
+  height: 100%; /* Make sure the form takes full height */
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+form.sign-up-form {
+  opacity: 0;
+  z-index: 1;
+}
+
+form.sign-in-form {
+  z-index: 2;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 0;  /* Reduce bottom margin to bring name closer to logo */
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  animation: float 3s ease-in-out infinite;
+}
+
+.logo-container .logo {
+  animation: none; /* Remove any animations */
+  transform: none; /* Remove any transformations */
+  position: relative; /* Ensure the logo stays in place */
+}
+
+.title {
+  font-size: 1.8rem;
+  color: #444;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background: linear-gradient(45deg, #6b46c1, #3182ce);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.input-field {
+  max-width: 380px;
+  width: 100%;
+  background-color: #f0f0f0;
+  margin: 8px 0;
+  height: 55px;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0 0.4rem;
+  position: relative;
+  transition: 0.4s ease;
+}
+
+.sign-up-form .input-field {
+  margin: 6px 0; /* Slightly smaller margins */
+}
+
+.input-field:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.input-field i {
+  text-align: center;
+  line-height: 55px;
+  color: #acacac;
+  transition: 0.5s;
+  font-size: 1.1rem;
+}
+
+.input-field input {
+  background: none;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.input-field input::placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 380px;
+  margin: 10px 0 15px;
+  font-size: 0.9rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input {
+  margin-right: 5px;
+}
+
+.forgot-password {
+  color: #6b46c1;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.forgot-password:hover {
+  color: #3182ce;
+}
+
+.btn {
+  width: 150px;
+  background: linear-gradient(45deg, #6b46c1, #3182ce);
+  border: none;
+  outline: none;
+  height: 49px;
+  border-radius: 49px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  background: linear-gradient(45deg, #5a38a3, #2c6cb0);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 49px;
+  z-index: -1;
+  transition: all 0.4s;
+  opacity: 0;
+}
+
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.social-text {
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 0;
+}
+
+.social-media {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px; /* Increase bottom margin */
+  padding-bottom: 10px; /* Add padding at the bottom */
+}
+
+.google-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+  height: 45px;
+  border: 1px solid #ddd;
+  border-radius: 45px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 0 15px;
+  position: relative; /* Ensure proper positioning in the flow */
+  z-index: 3; /* Make sure it's above other elements */
+  margin-bottom: 15px; /* Increase bottom margin */
+}
+
+.google-btn:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.google-btn svg {
+  margin-right: 10px;
+}
+
+.google-btn span {
+  font-weight: 500;
+  color: #444;
+}
+
+.panels-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.container:before {
+  content: "";
+  position: absolute;
+  height: 2000px;
+  width: 2000px;
+  top: -10%;
+  right: 48%;
+  transform: translateY(-50%);
+  background-image: linear-gradient(45deg, #6b46c1, #3182ce);
+  transition: 1.8s ease-in-out;
+  border-radius: 50%;
+  z-index: 6;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  text-align: center;
+  z-index: 6;
+}
+
+.left-panel {
+  pointer-events: all;
+  padding: 3rem 17% 2rem 12%;
+}
+
+.right-panel {
+  pointer-events: none;
+  padding: 3rem 12% 2rem 17%;
+}
+
+.panel .content {
+  color: #fff;
+  transition: transform 0.9s ease-in-out;
+  transition-delay: 0.6s;
+}
+
+.panel h3 {
+  font-weight: 600;
+  line-height: 1;
+  font-size: 1.5rem;
+}
+
+.panel p {
+  font-size: 0.95rem;
+  padding: 0.7rem 0;
+}
+
+.btn.transparent {
+  margin: 0;
+  background: none;
+  border: 2px solid #fff;
+  width: 130px;
+  height: 41px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.btn.transparent:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 50%;
+}
+
+.floating-shape {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+.shape1 {
+  width: 80px;
+  height: 80px;
+  top: 20%;
+  left: 30%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape2 {
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  left: 60%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.shape3 {
+  width: 40px;
+  height: 40px;
+  top: 70%;
+  left: 20%;
+  animation: float 10s ease-in-out infinite;
+}
+
+.right-panel .content,
+.right-panel .image-container {
+  transform: translateX(800px);
+}
+
+/* ANIMATION */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Remove bounce animation keyframes and add gradient-pulse animation */
+@keyframes gradient-pulse {
+  0% {
+    background-position: 0% 50%;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: scale(1.03);
+    filter: brightness(1.1);
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 870px) {
+  .container {
+    min-height: 800px;
+    height: 100vh;
+  }
+  
+  .signin-signup {
+    width: 100%;
+    top: 95%;
+    transform: translate(-50%, -100%);
+    transition: 1s 0.8s ease-in-out;
+    height: 90%; /* Allow more height */
+    overflow-y: auto; /* Enable scrolling if needed */
+  }
+
+  .signin-signup,
+  .container.sign-up-mode .signin-signup {
+    left: 50%;
+  }
+
+  .panels-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+  }
+
+  .panel {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2.5rem 8%;
+    grid-column: 1 / 2;
+  }
+
+  .right-panel {
+    grid-row: 3 / 4;
+  }
+
+  .left-panel {
+    grid-row: 1 / 2;
+  }
+
+  .panel .content {
+    padding-right: 15%;
+    transition: transform 0.9s ease-in-out;
+    transition-delay: 0.8s;
+  }
+
+  .panel h3 {
+    font-size: 1.2rem;
+  }
+
+  .panel p {
+    font-size: 0.7rem;
+    padding: 0.5rem 0;
+  }
+
+  .btn.transparent {
+    width: 110px;
+    height: 35px;
+    font-size: 0.7rem;
+  }
+
+  .container:before {
+    width: 1500px;
+    height: 1500px;
+    transform: translateX(-50%);
+    left: 30%;
+    bottom: 68%;
+    right: initial;
+    top: initial;
+    transition: 2s ease-in-out;
+  }
+
+  .container.sign-up-mode:before {
+    transform: translate(-50%, 100%);
+    bottom: 32%;
+    right: initial;
+  }
+
+  .container.sign-up-mode .left-panel .content,
+  .container.sign-up-mode .left-panel .image-container {
+    transform: translateY(-300px);
+  }
+
+  .container.sign-up-mode .right-panel .content,
+  .container.sign-up-mode .right-panel .image-container {
+    transform: translateY(0px);
+  }
+
+  .right-panel .content,
+  .right-panel .image-container {
+    transform: translateY(300px);
+  }
+
+  .container.sign-up-mode .signin-signup {
+    top: 5%;
+    transform: translate(-50%, 0);
+    height: 90%; /* More height in sign-up mode too */
+  }
+
+  /* Make the form content scrollable if needed */
+  form.sign-up-form, form.sign-in-form {
+    padding-bottom: 30px; /* More padding at the bottom */
+    overflow-y: auto;
+    max-height: 100%;
+  }
+}
+
+@media (max-width: 570px) {
+  form {
+    padding: 0 1.5rem;
+  }
+
+  .panel .content {
+    padding: 0.5rem 1rem;
+  }
+  
+  .container {
+    padding: 1.5rem;
+  }
+
+  .container:before {
+    bottom: 72%;
+    left: 50%;
+  }
+
+  .container.sign-up-mode:before {
+    bottom: 28%;
+    left: 50%;
+  }
+}
+
+/* Add these styles to your CSS file */
+.website-name {
+  font-size: 3.2rem; /* Slightly smaller */
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(120deg, #6b46c1, #3182ce, #805ad5, #4299e1);
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  transition: transform 0.3s ease; /* Add transition for smooth effect */
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.website-name {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.website-description {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 700; /* Make description bold */
+}
+
+/* Update logo styling to ensure visibility */
+.sign-up-form .logo-container,
+.sign-in-form .logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0; /* Reduced from 5px to 0 */
+  width: 100%;
+  height: 80px; /* Reduced from 100px to 80px to tighten spacing */
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  display: block; /* Ensures the image is properly displayed */
+}
+
+/* Fix z-index issues that might be causing visibility problems */
+form.sign-up-form {
+  opacity: 0;
+  z-index: 1;
+}
+
+/* When in sign-up mode, ensure the sign-up form and its elements are visible */
+.container.sign-up-mode form.sign-up-form {
+  opacity: 1;
+  z-index: 2;
+}
+
+.container.sign-up-mode form.sign-in-form {
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Ensure logo doesn't disappear during transitions */
+.sign-up-form .logo-container,
+.sign-up-form .website-name,
+.sign-up-form .website-description {
+  transition: opacity 0.3s ease;
+}
+
+.container:not(.sign-up-mode) .sign-up-form .logo-container,
+.container:not(.sign-up-mode) .sign-up-form .website-name,
+.container:not(.sign-up-mode) .sign-up-form .website-description {
+  visibility: hidden;
+}
+
+.container.sign-up-mode .sign-up-form .logo-container,
+.container.sign-up-mode .sign-up-form .website-name,
+.container.sign-up-mode .sign-up-form .website-description {
+  visibility: visible;
+}
+
+/* Adjust form transitions for smoother experience */
+form.sign-up-form,
+form.sign-in-form {
+  transition: all 0.7s 0.2s;
+  height: 100%; /* Ensure full height */
+}
+
+.container.sign-up-mode .signin-signup {
+  transition-delay: 0.7s;
+  left: 25%;
+}
+
+/* Fix transition issues that may be causing elements to disappear */
+
+/* Update logo styling for horizontal layout in sign-up form */
+.sign-up-form .logo-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Position logo on right side for sign-up form only */
+.sign-up-form .logo-container {
+  display: flex;
+  flex-direction: row; /* Horizontal alignment */
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Space between logo and text */
+  margin-bottom: 10px;
+}
+
+/* Position logo on left side of name */
+.sign-up-form .logo {
+  order: -1; /* This puts the logo before other elements */
+  margin-right: 10px; /* Add some space between logo and text */
+}
+
+/* Create a wrapper for website name and description in sign-up form */
+.sign-up-form .text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align text to left side */
+}
+
+/* Adjust website name size for horizontal layout */
+.sign-up-form .website-name {
+  font-size: 3.3rem; /* Smaller to fit horizontally */
+  margin-right: 0;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Fix the selector to target the website name element correctly */
+.sign-up-form .website-name {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Ensure logo size is appropriate for horizontal layout */
+.sign-up-form .logo {
+  width: 60px;
+  height: 60px;
+}
+
+/* Maintain original layout for sign-in form */
+.sign-in-form .logo-container {
+  flex-direction: column;
+  height: 80px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 570px) {
+  .sign-up-form .logo-container {
+    flex-direction: column; /* Stack vertically on small screens */
+    gap: 5px;
+  }
+  
+  .sign-up-form .text-wrapper {
+    align-items: center; /* Center align on small screens */
+  }
+  
+  .sign-up-form .website-name {
+    font-size: 2rem;
+  }
+}

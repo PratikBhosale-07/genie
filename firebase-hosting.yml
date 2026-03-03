@@ -1,0 +1,2 @@
+- name: Firebase Deployment
+  uses: sws2apps/firebase-deployment@v3.7.0

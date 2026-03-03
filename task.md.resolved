@@ -1,0 +1,55 @@
+# Genie AI Workspace SaaS Platform
+
+## Phase 1 — Clean Architecture Refactor
+[x] Evaluate existing UI in `p:/program/Code/Genie`
+[x] Download and convert Stitch HTML to Next.js components
+[x] Refactor into scalable component structure (`/app/auth`, `/app/dashboard`, etc.)
+[x] Separate Layout, Business Logic, API, and Socket layers
+
+## Phase 2 — Authentication
+[x] Implement Email/Password & Google OAuth
+[x] Implement JWT (HTTP-only cookies)
+[x] Role-based access control
+[x] Create middlewares (`requireAuth`, `requireRoomAccess`)
+
+## Phase 3 — Room System
+[ ] Backend schema for Rooms, Users, RoomMembers
+[ ] Create room, join room, invite link logic
+[ ] Role assignment (Owner / Admin / Member)
+[ ] Validation for private rooms
+
+## Phase 4 — Real-Time Chat System
+[ ] Setup Socket.io with Redis adapter
+[ ] Events: send, edit, typing start/stop, join/leave
+[ ] Save messages to DB and broadcast via Socket
+[ ] Room-based namespaces (`room:{roomId}`)
+
+## Phase 5 — AI Integration (Shared Context)
+[ ] Implement AI service layer (`/services/ai.service.ts`)
+[ ] Context summarization job (Room AI context, fetch last 20 messages)
+[ ] Token tracking and Monthly usage cap limits
+[ ] Route model based on subscription
+
+## Phase 6 — File Storage
+[ ] Setup AWS S3 signed URL uploads
+[ ] DB metadata storage and validation
+[ ] Room-level secure download access
+
+## Phase 7 — Video Call System
+[ ] WebRTC signaling via Socket.io
+[ ] P2P connections (call:start, offer, answer, ice, end)
+
+## Phase 8 — Stripe Subscription
+[ ] Stripe customer & subscription creation
+[ ] Webhook listener
+[ ] Feature gating middleware (`requireProFeature`)
+[ ] Free plan limits enforcement
+
+## Phase 9 — Security Requirements
+[ ] Rate limiting (Redis), Validation (Zod), SQLi protection
+[ ] Helmet middleware, CORS
+[ ] AI prompt injection filtering
+
+## Phase 10 — Scalability
+[ ] DB Indexing and query optimization
+[ ] Horizontal scaling preparation

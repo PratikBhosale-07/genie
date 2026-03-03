@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Genie AI Workspace Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6366f1", // Indigo-500 equivalent, a nice purple-blue
+                        secondary: "#8b5cf6", // Violet-500
+                        dark: "#0f172a", // Slate-900
+                        "dark-surface": "#1e293b", // Slate-800
+                        "background-light": "#f3f4f6", // Gray-100
+                        "background-dark": "#0b0f19", // Deep dark blue/black
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#151b2b", // Slightly lighter than background-dark
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem", // 12px
+                        xl: "1rem",
+                        "2xl": "1.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 h-screen overflow-hidden flex transition-colors duration-300">
+<aside class="w-64 flex-shrink-0 flex flex-col border-r border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-surface-dark transition-colors duration-300">
+<div class="h-20 flex items-center px-6 gap-3">
+<div class="w-8 h-8 relative">
+<img alt="Genie Logo" class="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(139,92,246,0.5)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAleRxUgPUYE8Rj8omdFvVOxGDXGGVhQH8jkboROSy_pKXQ05io1X6QXyJ9KIZrEG8Z-yQoRs_QbtMnm2gTSNmkqm0W1j9FYERn0rU8esPaOjFZ_GrdyPfkcgd59FCEFUd1w__mxD6lqGx7kW_1nnrq0pIY0_nWpiavfjQZ_yHgFrSHBkMRIiOFPVGfQmm0z_OGFULKfCnXn-HHNPQzhcrwcBQ8Qk6tZEy3nkkaXwO77Ml2kRPHG8qMnCP3m-U1GYcU3w52mOruQuQ"/>
+</div>
+<h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-500 to-blue-500">Genie</h1>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-500/20 group transition-all" href="#">
+<span class="material-symbols-rounded">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors group" href="#">
+<span class="material-symbols-rounded group-hover:text-primary transition-colors">chat_bubble</span>
+<span class="font-medium">Chats</span>
+<span class="ml-auto text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 px-2 py-0.5 rounded-full">3</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors group" href="#">
+<span class="material-symbols-rounded group-hover:text-primary transition-colors">groups</span>
+<span class="font-medium">Teams</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors group" href="#">
+<span class="material-symbols-rounded group-hover:text-primary transition-colors">folder_open</span>
+<span class="font-medium">Files</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
+<p class="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Workspace</p>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors group" href="#">
+<span class="material-symbols-rounded group-hover:text-primary transition-colors">analytics</span>
+<span class="font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors group" href="#">
+<span class="material-symbols-rounded group-hover:text-primary transition-colors">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<button class="flex items-center gap-3 w-full p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-orange-400 p-0.5">
+<img alt="User Avatar" class="w-full h-full rounded-full border-2 border-surface-light dark:border-surface-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMzbm2JFMHms64MGHVGidauGEUuHFv8UlncDWCIXCR3ICIKSHg5l5M7KV4KaLEV7awJzG-ifpt3WocDnhUMDRFBOGZVmK7TQjUrE4Wwy7PO7LVhsw6RgoM_-m4ASRoU0aYsbcJzjoYrFJ3wxbMLX7JsgoXD112vLRay-57zFD1_kLyQ8Q2BD1r6XfobiKbeTzjTgruU81IlGefnkjrnayaLAYxcDA5Hsfcc024f20tOwyEXTg5YT6FR0QlSsmoYN-J96SDAdRScrA"/>
+</div>
+<div class="text-left flex-1">
+<p class="text-sm font-semibold text-slate-900 dark:text-white">Sarah Connor</p>
+<p class="text-xs text-green-500 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                        Online
+                    </p>
+</div>
+<span class="material-symbols-rounded text-slate-400">logout</span>
+</button>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto relative">
+<header class="h-20 flex items-center justify-between px-8 sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div>
+<h2 class="text-2xl font-bold dark:text-white">Welcome back, Sarah! 👋</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">Here's what's happening in your workspace today.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-700 rounded-xl text-sm w-64 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all dark:text-slate-200 dark:placeholder-slate-500" placeholder="Search anything..." type="text"/>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300">
+<span class="material-symbols-rounded">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-rounded dark:hidden">dark_mode</span>
+<span class="material-symbols-rounded hidden dark:block">light_mode</span>
+</button>
+</div>
+</header>
+<div class="p-8 space-y-8 pb-24">
+<div class="relative rounded-3xl overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-r from-violet-900 to-slate-900 z-0"></div>
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 z-0"></div>
+<div class="absolute -right-20 -top-20 w-96 h-96 bg-primary/30 rounded-full blur-[100px]"></div>
+<div class="relative z-10 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="max-w-xl space-y-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-medium text-white backdrop-blur-sm">
+<span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                            AI Agent v2.4 Active
+                        </div>
+<h3 class="text-3xl font-bold text-white leading-tight">Your AI Team is ready to collaborate.</h3>
+<p class="text-slate-300 text-lg">Draft documents, analyze data, and brainstorm ideas with your custom AI assistants directly in your workspace.</p>
+<div class="pt-4 flex gap-4">
+<button class="relative overflow-hidden px-6 py-3 bg-white text-primary font-semibold rounded-xl hover:bg-indigo-50 transition-colors flex items-center gap-2 group/btn">
+<span class="material-symbols-rounded">auto_awesome</span>
+                                Ask AI
+                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]"></div>
+</button>
+<button class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-medium rounded-xl border border-white/10 backdrop-blur-sm transition-colors">
+                                Create New Chat Room
+                            </button>
+</div>
+</div>
+<div class="relative w-64 h-48 hidden md:block">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-32 h-32 rounded-2xl bg-gradient-to-tr from-violet-500 to-indigo-500 rotate-12 opacity-80 blur-sm absolute"></div>
+<div class="w-32 h-32 rounded-2xl bg-surface-dark border border-slate-700 flex items-center justify-center shadow-2xl relative z-10 rotate-6 transform transition-transform group-hover:rotate-12 duration-500">
+<span class="material-symbols-rounded text-4xl text-violet-400">smart_toy</span>
+</div>
+<div class="w-32 h-32 rounded-2xl bg-surface-dark border border-slate-700 flex items-center justify-center shadow-2xl absolute z-20 -rotate-6 transform transition-transform group-hover:-rotate-12 duration-500 -ml-12 mt-12">
+<span class="material-symbols-rounded text-4xl text-blue-400">folder_data</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-4">
+<div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-symbols-rounded">group</span>
+</div>
+<span class="text-xs font-medium text-green-600 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded-full">+12%</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Active Members</p>
+<h4 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">248</h4>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-4">
+<div class="w-10 h-10 rounded-lg bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400">
+<span class="material-symbols-rounded">token</span>
+</div>
+<span class="text-xs font-medium text-green-600 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded-full">+5.4%</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">AI Tokens Used</p>
+<h4 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">1.2M</h4>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-4">
+<div class="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+<span class="material-symbols-rounded">cloud_done</span>
+</div>
+<span class="text-xs font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-full">85% full</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Storage Used</p>
+<h4 class="text-2xl font-bold text-slate-900 dark:text-white mt-1">420 GB</h4>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Your Chat Rooms</h3>
+<a class="text-sm font-medium text-primary hover:text-indigo-400 transition-colors flex items-center gap-1" href="#">
+                        View All
+                        <span class="material-symbols-rounded text-lg">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="group relative bg-white dark:bg-surface-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 dark:hover:border-primary/50 transition-all hover:shadow-xl hover:shadow-primary/5 cursor-pointer">
+<div class="flex items-start justify-between mb-6">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+<span class="material-symbols-rounded text-2xl">rocket_launch</span>
+</div>
+<div class="px-2 py-1 bg-violet-100 dark:bg-violet-900/20 rounded-lg flex items-center gap-1">
+<span class="material-symbols-rounded text-violet-600 dark:text-violet-400 text-sm">auto_awesome</span>
+<span class="text-xs font-semibold text-violet-600 dark:text-violet-400">AI Active</span>
+</div>
+</div>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">Project Alpha</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">Strategy planning for Q4 product launch including marketing assets.</p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<div class="flex -space-x-2">
+<img alt="Member" class="w-8 h-8 rounded-full border-2 border-white dark:border-surface-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRDqqU7LZmUVBOq9lo0RJ3Styxuzd246NGF6JoglJ5LucxQQPhQvX9_eX2ksZlf3-LJ8mmTQ869gPD_DseN5h78lHpFlto04lVq2RLbIhTExGLwjh9r_p0YqED73RoobbIhKMts5zaf9tzgD-nNciyqi4aYsMH0mUHZGuKpAM5dsKaFdK2KlRQcvj7w4cC10OIlWLYstl1nrUps0WAelXhxwv1QbrGXRbdL_hppR9b_bFFW7VM8Ui_jMGBSHC2DPkFazXBjH5p3Uk"/>
+<img alt="Member" class="w-8 h-8 rounded-full border-2 border-white dark:border-surface-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJnZKWPHtfyYUTGqlt9tPicoROAFWfsEut5nZAW8ZVER7z3oVOm9q7C4Ah9eJ39ivfbxr6NzxkCPZKu-bU30MA7v5byMn32JGbpN2tBLNbBkCT-wQArF8fGRIeJNlv-K1KlQTH3qElAWOMU1ibpdbYmo4FXDl2uIEfCvEKnChZLbaJDLFO6MytLpoKDEQa48UxHkbRFkf3coctJaJrB_KLYRNJ9dEaQpAqGitq8Pm_Ky2Rjg7bBwFGtAwjOTWIKAqe_9CFi2S3gqg"/>
+<img alt="Member" class="w-8 h-8 rounded-full border-2 border-white dark:border-surface-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCAYO07JZMFrRyQovuttAxAsyYt_Jzi0Sj4H6TEKF4B0oYpded2QF8OH2UpuW6qPV_6l812qkjTdylN1AA_qzbFSeHYbgScgZvX1rGN1Rvr5IGTftU7ixb5-6BdFye-GuHwbYDaB03sp_d4xEYFAd8ELN2qcfjoHJeuyxPSvmekEDkSvwaA6vVMgjZLnhd0rmBEJtVfJwer6LY46bHq5ZSQ4xm4VwIqlszZGAhvuHAK6SLG3rB7iFYvp2jpPbiLSdoF6nVbuS5IoA"/>
+<div class="w-8 h-8 rounded-full border-2 border-white dark:border-surface-dark bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-300">+2</div>
+</div>
+<span class="text-xs text-slate-400">Edited 2h ago</span>
+</div>
+</div>
+<div class="group relative bg-white dark:bg-surface-dark p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 dark:hover:border-primary/50 transition-all hover:shadow-xl hover:shadow-primary/5 cursor-pointer">
+<div class="flex items-start justify-between mb-6">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+<span class="material-symbols-rounded text-2xl">design_services</span>
+</div>
+</div>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">Design System</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-6 line-clamp-2">Component library updates and documentation for the new UI kit.</p>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<div class="flex -space-x-2">
+<img alt="Member" class="w-8 h-8 rounded-full border-2 border-white dark:border-surface-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdwJnVwoji4qNcvVWcSbep-JYaTC-MMli_Cfyue5b6n_k7vzzG8uOn_fTK1mkw2zHs3CPskWQuMMzRlJEMOT4Nn9eKDXbL2ppkL0HgAx1zUXUblrK9yTXtORsWD3rtCxTGd3emQ7v2-RsTqdztpj4jYDXLhxWGQbTHgU13IU8DuCiA38kGItDc4mJyImPeaAmcJxV5XLlkSwGusHVu8XhyAeO0EzRjVgCMxQwgjs5-Qg58H5HRBcV83d5f_b2QSLPa6IVnP6upB2o"/>
+<img alt="Member" class="w-8 h-8 rounded-full border-2 border-white dark:border-surface-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQxZvSRQQQrjuUlv7MLADVsFMWKUW5tEWPE616wnF6p0bg-1jbUnh9Xf3jyjJhUQkP5TDgw8X8V8S-gZbjw2J-yRyiy7b_9e7XliAoi7CV_8XIGAE5L72u4HGxMq4zJw8Giy1qdTV0-CQZSpgsbEW2TN402IVYsIsrCGOTWcx9WrQa1lgh2DUXb_rbB21Z4KDaTcL_C-Zy2dZm_QLxpiAL2er-kEp0n1rro2EHVOStMBlr6nwuK3AEXzOa0AxLquY7adRB99pjSU0"/>
+</div>
+<span class="text-xs text-slate-400">Edited 5m ago</span>
+</div>
+</div>
+<button class="group relative h-full min-h-[240px] border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 hover:border-primary hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-primary transition-all">
+<div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 group-hover:bg-primary/10 flex items-center justify-center mb-4 transition-colors">
+<span class="material-symbols-rounded text-3xl group-hover:text-primary">add</span>
+</div>
+<span class="font-medium">Create New Room</span>
+<span class="text-xs mt-1 text-slate-400">Start a new project or discussion</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<aside class="w-80 hidden xl:flex flex-col border-l border-slate-200 dark:border-slate-800 bg-surface-light dark:bg-surface-dark/50 backdrop-blur-sm relative z-20">
+<div class="p-6 h-full flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-lg dark:text-white flex items-center gap-2">
+<span class="material-symbols-rounded text-primary">smart_toy</span>
+                    AI Assistant
+                </h3>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Context Synced</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto space-y-4 mb-4 pr-2">
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 to-orange-400 flex-shrink-0 overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3RZ0lpbAXavVB5ZT-adRPFCczTUYCpCW4Y6yXIp1NGqVrpj1yzGBLKMlQTEHH3SqnTzrJ3bYvuRYSBqLmh9aQFdx_g71LbFiAI58Bv0ch8xId_5PCUYoZJptPaNKxBFaJsUrUwG39RGluwMhqZI7fP1i_DDPeCuCDnjhnynv3DGBKAydGFy4mNp9ioe062EN2x_EyQ-LzaD4GxuS0Oh7NCXU-mVMNEbxKyxd34w06jvJIBUSkrLfedbzWclfcUclaN28fLtPV1Mk"/>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none text-sm text-slate-800 dark:text-slate-200">
+                        Summarize the key points from the Project Alpha channel.
+                    </div>
+</div>
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-white shadow-lg shadow-primary/30">
+<span class="material-symbols-rounded text-sm">auto_awesome</span>
+</div>
+<div class="bg-primary/10 dark:bg-primary/20 border border-primary/10 dark:border-primary/20 p-3 rounded-2xl rounded-tr-none text-sm text-slate-800 dark:text-slate-200">
+<p class="mb-2">Here's a summary of Project Alpha:</p>
+<ul class="list-disc pl-4 space-y-1 text-xs text-slate-600 dark:text-slate-300">
+<li>Launch date set for Nov 15th</li>
+<li>Marketing assets are pending approval</li>
+<li>Budget approved for social ads</li>
+</ul>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 to-orange-400 flex-shrink-0 overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbWp-ouHb5pyIVqaSd53OWAPmTgcP3IcjRLy-t4Y5z9B1n1-5qWY_AqmblFNHexRDMGpGmEQyNk7sqB6Z27U2g70HGrAQm505yZwzfHEG19PXC52euwmpEMnEVr93iH8-nB0vYXmNEgGWAdncbuLOqum5ssDbporPUoHL93e-ISFCJrLtlBvFPRq8IYPcDie-OQpGeCgA3-BTslznTNs1of_1eosgEZOyrjU4BGBJYzcqf6gZJMYmqI-rTQJxYKvV2OUTQwMaQJIs"/>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none text-sm text-slate-800 dark:text-slate-200">
+                        Generate a task list for the marketing team.
+                    </div>
+</div>
+<div class="flex gap-3 relative">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-white shadow-lg shadow-primary/30 z-10">
+<span class="material-symbols-rounded text-sm animate-spin">sync</span>
+</div>
+<div class="bg-primary/10 dark:bg-primary/20 border border-primary/10 dark:border-primary/20 p-3 rounded-2xl rounded-tr-none text-sm text-slate-800 dark:text-slate-200 shimmer relative overflow-hidden">
+<span class="relative z-10">Generating tasks...</span>
+</div>
+</div>
+</div>
+<div class="relative mt-auto">
+<input class="w-full pl-4 pr-12 py-3 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all dark:text-white shadow-sm" placeholder="Ask AI anything..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-primary text-white rounded-lg hover:bg-indigo-600 transition-colors">
+<span class="material-symbols-rounded text-lg">arrow_upward</span>
+</button>
+</div>
+</div>
+</aside>
+
+</body></html>
